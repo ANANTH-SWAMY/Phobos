@@ -20,6 +20,7 @@ const Auth = ({auth, setLogin, setLogout, handleUserChange}) => {
 
     
     useEffect(()=>{
+        if(!localStorage.getItem("emailList")) return;
         const emailList = localStorage.getItem("emailList");
         setListEmail(JSON.parse(emailList).list);
     },[])
