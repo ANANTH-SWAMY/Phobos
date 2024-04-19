@@ -67,7 +67,7 @@ const Dashboard = () => {
                     </a>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/login")}>Logout</a>
+                    <a onClick={() => navigate("/auth")}>Logout</a>
                   </li>
                 </ul>
               </details>

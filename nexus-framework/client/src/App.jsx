@@ -13,36 +13,47 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(true);
   const [currUser, setCurrUser] = useState(null);
 
-  const login = () => {
-    setAuthenticated(true);
-  };
+  const handleAuth = (e) =>{
+    setAuthenticated(e);
+  }
 
-  const logout = () => {
-    setAuthenticated(false);
-  };
+  // const login = () => {
+  //   setAuthenticated(true);
+  // };
 
-  useEffect(()=>{
-    if(currUser===""){
-      if(!localStorage.getItem("currUser")) logout();
-      setCurrUser(localStorage.getItem("currUser"));
-      login();
-    }
-  },[currUser])
+  // const logout = () => {
+  //   setAuthenticated(false);
+  // };
+
+  // useEffect(()=>{
+  //   if(currUser===""){
+  //     if(!localStorage.getItem("currUser")) logout();
+  //     setCurrUser(localStorage.getItem("currUser"));
+  //     login();
+  //   }
+  // },[currUser])
 
   const handleUserChange = (mail) =>{
     setCurrUser(mail);
-  } 
+  }
+
+  useEffect(()=>{
+    if(!localStorage.getItem("currUser")) setAuthenticated(false);
+    else setAuthenticated(true);
+  },[authenticated])
+
+  useEffect(()=>{console.log("Auth changed --->", authenticated)}, [authenticated])
 
   return (
     <Router>
       <Routes>
         {/* <Route path="/login" element={<LoginForm login={login} />} /> */}
-        { <Route path="/auth" element={<Auth auth={authenticated} setLogin={login} setLogout={logout} handleUserChange={handleUserChange} />} />}
+        { <Route path="/auth" element={<Auth auth={authenticated} handleAuth={handleAuth} handleUserChange={handleUserChange} />} />}
         <Route
           path="/dashboard"
           element={
             authenticated ? (
-              <Dashboard logout={logout} />
+              <Dashboard handleAuth={handleAuth} />
             ) : (
               // <Navigate to="/login" />
               <Navigate to="/auth" />
