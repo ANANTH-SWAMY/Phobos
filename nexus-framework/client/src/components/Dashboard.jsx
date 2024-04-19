@@ -56,7 +56,9 @@ const Dashboard = () => {
             </li>
             <li>
               <details>
-                <summary>User</summary>
+                <summary className="underline">
+                  {localStorage.getItem("currUser")}
+                </summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li>
                     <a
@@ -67,7 +69,17 @@ const Dashboard = () => {
                     </a>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/auth")}>Logout</a>
+                    <a onClick={navigate("/auth")}>Change Account</a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        localStorage.removeItem("currUser");
+                        navigate("/auth");
+                      }}
+                    >
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </details>

@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import NavBar from "./NavBar";
+import { IoMdSend } from "react-icons/io";
 
-const Auth = ({ auth, handleAuth, handleUserChange }) => {
+const Auth = ({ handleAuth, handleUserChange }) => {
   const [email, setEmail] = useState("");
   const [listEmail, setListEmail] = useState([]);
 
   const handleSubmit = () => {
     if (email.trim() === "") {
       alert("Enter email");
+      return;
+    }
+    if (!validateEmail(email)) {
+      toast.error("Enter a valid email");
       return;
     }
     const list = [...listEmail, email];
@@ -21,6 +27,14 @@ const Auth = ({ auth, handleAuth, handleUserChange }) => {
     navigate("/dashboard");
   };
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   useEffect(() => {
     if (!localStorage.getItem("emailList")) return;
     const emailList = localStorage.getItem("emailList");
@@ -30,36 +44,18 @@ const Auth = ({ auth, handleAuth, handleUserChange }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen h-screen flex flex-col gap-10 items-center justify-center">
-      <Toaster />
-      <div className="flex justify-center items-center w-[50%] gap-5 overflow-auto p-3 border-slate-600 border-2 rounded-xl">
-        {listEmail.length ? (
-          listEmail.map((ele, index) => {
-            return (
-              <div
-                onClick={() => {
-                  handleUserChange(ele);
-                  toast(`User switched to : ${ele}`);
-                  localStorage.setItem("currUser", ele);
-                }}
-                className="p-4 py-2  border-2 border-slate-800 rounded-md flex justify-center items-center cursor-pointer"
-                key={index}
-              >
-                {ele}
-              </div>
-            );
-          })
-        ) : (
-          <div className="text-slate-200">Nothing to show</div>
-        )}
-      </div>
-      Hello World {"-->"} {localStorage.getItem("currUser")}
-      {auth ? (
-        <div>Auth Done</div>
-      ) : (
+    <div className="w-screen h-screen flex flex-col items-center justify-start">
+      <NavBar />
+      <div className="w-full h-full flex flex-col justify-center  gap-10 items-center">
+        <figure className="px-10 pt-10">
+          <img src="public/logo.png" width={150} height={150} />
+        </figure>
+        {localStorage.getItem("currUser")
+          ? `Current User : ${localStorage.getItem("currUser")}`
+          : ""}
         <div className="flex justify-center items-center gap-10">
           <input
-            type="text"
+            type="email"
             value={email}
             placeholder={"Enter mail"}
             className="p-2 rounded-md"
@@ -70,10 +66,32 @@ const Auth = ({ auth, handleAuth, handleUserChange }) => {
             onClick={handleSubmit}
             className="border-2 p-2 rounded-md border-slate-800 flex justify-center items-center"
           >
-            Submit
+            <IoMdSend />
           </button>
         </div>
-      )}
+        <div className="flex justify-center items-center w-[50%]  gap-5 overflow-auto p-3 border-slate-600 border-2 rounded-xl">
+          {listEmail.length ? (
+            listEmail.map((ele, index) => {
+              return (
+                <div
+                  onClick={() => {
+                    handleUserChange(ele);
+                    toast.success(`User switched to : ${ele}`);
+                    localStorage.setItem("currUser", ele);
+                  }}
+                  className="p-4 py-2  border-2 border-slate-800 rounded-md flex justify-center items-center cursor-pointer"
+                  key={index}
+                >
+                  {ele}
+                </div>
+              );
+            })
+          ) : (
+            <div className="text-slate-200">Nothing to show</div>
+          )}
+        </div>
+      </div>
+      <Toaster richColors />
     </div>
   );
 };

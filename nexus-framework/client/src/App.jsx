@@ -40,7 +40,7 @@ const App = () => {
   useEffect(()=>{
     if(!localStorage.getItem("currUser")) setAuthenticated(false);
     else setAuthenticated(true);
-  },[authenticated])
+  },[])
 
   useEffect(()=>{console.log("Auth changed --->", authenticated)}, [authenticated])
 
