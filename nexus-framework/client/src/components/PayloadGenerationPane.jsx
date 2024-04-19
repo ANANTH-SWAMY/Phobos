@@ -9,7 +9,7 @@ const PayloadGenerationPane = () => {
   return (
     <div className="font-poppins">
       <div className="navbar bg-transparent">
-        <h1 className="text-4xl flex-1 font-bold mt-10 ml-10">Listeners</h1>
+        <h1 className="text-4xl flex-1 font-bold mt-8 ml-10">Listeners</h1>
       </div>
       <div className="flex-none grid-cols-4">
         <div className="card w-96 bg-base-100 shadow-xl">

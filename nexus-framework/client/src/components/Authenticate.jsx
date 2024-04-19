@@ -47,8 +47,8 @@ const Auth = ({ handleAuth, handleUserChange }) => {
     <div className="w-screen h-screen flex flex-col items-center justify-start">
       <NavBar />
       <div className="w-full h-full flex flex-col justify-center  gap-10 items-center">
-        <figure className="px-10 pt-10">
-          <img src="public/logo.png" width={150} height={150} />
+        <figure>
+          <img src="public/logo.png" width={350} height={350} />
         </figure>
         {localStorage.getItem("currUser")
           ? `Current User : ${localStorage.getItem("currUser")}`
@@ -58,7 +58,7 @@ const Auth = ({ handleAuth, handleUserChange }) => {
             type="email"
             value={email}
             placeholder={"Enter mail"}
-            className="p-2 rounded-md"
+            className="p-4 w-[300px] rounded-md"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <button
@@ -69,14 +69,23 @@ const Auth = ({ handleAuth, handleUserChange }) => {
             <IoMdSend />
           </button>
         </div>
-        <div className="flex justify-center items-center w-[50%]  gap-5 overflow-auto p-3 border-slate-600 border-2 rounded-xl">
+        <div className="flex justify-start items-center w-[80%] md:w-[50%]  gap-5 overflow-auto p-3 border-slate-600 border-2 rounded-xl">
           {listEmail.length ? (
             listEmail.map((ele, index) => {
               return (
                 <div
                   onClick={() => {
                     handleUserChange(ele);
-                    toast.success(`User switched to : ${ele}`);
+                    handleAuth(true);
+                    toast.success(
+                      `User switched to : ${ele}`,
+                      {
+                        action: {
+                          label: "Dashboard",
+                          onClick: () => navigate("/dashboard"),
+                        },
+                      }
+                    );
                     localStorage.setItem("currUser", ele);
                   }}
                   className="p-4 py-2  border-2 border-slate-800 rounded-md flex justify-center items-center cursor-pointer"
@@ -87,7 +96,7 @@ const Auth = ({ handleAuth, handleUserChange }) => {
               );
             })
           ) : (
-            <div className="text-slate-200">Nothing to show</div>
+            <div className="text-slate-200">Login to get started</div>
           )}
         </div>
       </div>
