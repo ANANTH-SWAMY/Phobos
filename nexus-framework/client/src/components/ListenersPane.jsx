@@ -114,22 +114,58 @@
 
 // export default ListenersPane;
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { useEffect, useState } from "react";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 
-
-const data = [{name: 'Log A', uv: 400, pv: 2400, amt: 2400}, {name: 'Log B', uv: 300, pv: 2300, amt: 2500}, {name: 'Log C', uv: 450, pv: 2700, amt: 2900}, {name: 'Log D', uv: 400, pv: 2400, amt: 2400}];
+const data = [
+  { name: "Log A", log_stuff: 400, pv: 2400, amt: 2400 },
+  { name: "Log B", log_stuff: 300, pv: 2300, amt: 2500 },
+  { name: "Log C", log_stuff: 450, pv: 2700, amt: 2900 },
+  { name: "Log D", log_stuff: 550, pv: 2400, amt: 2400 },
+  { name: "Log E", log_stuff: 150, pv: 2500, amt: 2900 },
+  { name: "Log F", log_stuff: 200, pv: 2400, amt: 2400 },
+];
 
 const ListenersPane = () => {
-  return (
-    <div className='w-full h-full flex justify-center items-center'>
-    <LineChart width={600} height={220} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-    <XAxis dataKey="name" />
-    <YAxis />
-    <Tooltip />
-  </LineChart></div>
-  )
-}
+  const [currData, setCurrData] = useState([]);
+  const [currIndex, setCurrIndex] = useState(0);
 
-export default ListenersPane
+  useEffect(() => {
+    const printInterval = setInterval(() => {
+      if (currIndex < data.length) {
+        setCurrData((prevData) => [...prevData, data[currIndex]]);
+        setCurrIndex((prevIndex) => prevIndex + 1);
+      } else {
+        clearInterval(printInterval);
+      }
+    }, 1000);
+
+    return () => clearInterval(printInterval);
+  }),
+    [currIndex, data];
+  return (
+    <div className="w-full h-full flex justify-center items-center">
+      <LineChart
+        width={600}
+        height={220}
+        data={currData}
+        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+      >
+        <Line type="monotone" dataKey="log_stuff" stroke="#8884d8" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="4 4" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+      </LineChart>
+    </div>
+  );
+};
+
+export default ListenersPane;
