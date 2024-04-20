@@ -6,11 +6,35 @@ import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import MoonLoader from "react-spinners/MoonLoader";
 import { Toaster, toast } from "sonner";
+import { useEffect } from "react";
+import axios from "axios";
+import { RxReload } from "react-icons/rx";
+
+// const apiData = {
+//   "192.168.95.186": {
+//     bot_02_bruh: {
+//       benign: 2,
+//     },
+//     bruteforce: {
+//       "SQL Inj": 2,
+//     },
+//     "ddos-loic-udp": {
+//       benign: 2,
+//     },
+//     infiltration_01: {
+//       benign: 1,
+//       Infilteration: 1,
+//     },
+//   },
+// };
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedLog, setSelectedLog] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [parsedData, setParsedData] = useState(null);
+  const [dataList, setDataList] = useState([]);
+  const [gotData, setGotData] = useState(null);
 
   const navigate = useNavigate();
   const handleTabClick = (tab) => {
@@ -44,9 +68,51 @@ const Dashboard = () => {
     }
   };
 
+  function parseReq(data) {
+    let res = [];
+    const ips = Object.keys(data);
+
+    ips.forEach((ip) => {
+      const attackTypes = Object.keys(data[ip]);
+      const predicts = {};
+
+      attackTypes.forEach((attackType) => {
+        predicts[attackType] = data[ip][attackType];
+      });
+
+      res.push({
+        ip: ip,
+        attacks: attackTypes,
+        predicts: predicts,
+      });
+    });
+    console.log(res);
+    setParsedData(res);
+  }
+
+  const handleApiCall = async () => {
+    try {
+      const apiData = await axios.get("http://192.168.95.231:8000/", {headers: {}});
+      console.log(apiData);
+      setDataList([...dataList, apiData.data]);
+      parseReq(apiData.data);
+      setGotData(apiData.data);
+      toast.success("Data Got");
+      
+    } catch (err) {
+      console.error("Error getting data -->", err);
+      toast.error("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    handleApiCall();
+  }, []);
+
   return (
-    <div className="h-screen  ">
+    <div className="h-screen relative">
       <Toaster richColors />
+      <div onClick={handleApiCall} className="absolute top-7 left-2 p-2 flex justify-center items-center rounded-md border-white border-2"><RxReload /></div>
       <div className="navbar font-poppins bg-base-100 outline outline-offset-4 outline-1 outline-stone-800 px-10">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">
@@ -120,12 +186,15 @@ const Dashboard = () => {
             <div className="flex flex-col justify-around items-center w-[50%]">
               <div className="card border border-base-300 mt-10 w-full h-[250px] overflow-auto">
                 <div className="card-body flex justify-self-start px-4 py-8 bg-base-200 rounded-2xl">
-                  <ConnectedMachinesPane selectedLog={selectedLog} />
+                  <ConnectedMachinesPane
+                    selectedLog={selectedLog}
+                    apiData={gotData}
+                  />
                 </div>
               </div>
               <div className="card border border-base-300 mt-2 w-full h-[290px] overflow-auto">
                 <div className="card-body flex justify-self-start px-4 py-4 bg-base-200 rounded-2xl">
-                  <ListenersPane selectedLog={selectedLog} />
+                  <ListenersPane parsedData={parsedData} />
                 </div>
               </div>
             </div>
@@ -133,8 +202,11 @@ const Dashboard = () => {
               <div className="absolute top-2 right-5">
                 <SyncLoader color={"#FFF"} size={5} />
               </div>
-              <div className="card-body flex justify-start items-center py-8 bg-base-200 rounded-sm overflow-auto">
-                <ActiveConnectionPane handleLogClick={handleLogClick} />
+              <div className="card-body flex justify-start w-full items-center py-8 bg-base-200 rounded-sm overflow-auto">
+                <ActiveConnectionPane
+                  handleLogClick={handleLogClick}
+                  dataList={dataList}
+                />
               </div>
             </div>
           </div>

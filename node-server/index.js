@@ -33,12 +33,12 @@ app.post("/mail", (req, res) => {
     Alert from Vajra!
   </h1>
   <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
-    This email is to notify you of some malicious activity that was detected in you network.
-    Please check your Admin Dashboard to learn more
+    This email is to notify you of some malicious activity that was detected in your network.
+    Please check your Admin Dashboard to learn more.
   </p>
   <div style="text-align: center;">
     <a
-      href="http://localhost:5173/dashboard"
+      href="https://1041-2401-4900-65b9-4faa-90b6-1805-b409-74e.ngrok-free.app"
       style="display: inline-block; background-color: #007bff; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px;"
     >
       Proceed
