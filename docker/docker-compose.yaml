@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mosquitto:
+    container_name: mosquitto
+    restart: always
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - default
+
+  zookeeper:
+    container_name: zookeeper
+    image: felipeagger/kafka-zookeeper:2.12
+    restart: always
+    ports:
+      - "2181:2181"
+  broker:
+    container_name: broker
+    image: felipeagger/kafka-broker:2.12
+    depends_on:
+      - zookeeper
+    restart: always
+    ports:
+      - "9092:9092"
+
+networks:
+  default:

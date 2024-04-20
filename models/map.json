@@ -1,0 +1,21 @@
+{
+  "bot_02-03-2018.joblib": {
+    "Benign": 0,
+    "Bot": 1
+  },
+  "bruteforce-web-xss_sql-injection_23-02-2018.joblib": {
+    "Benign": 0,
+    "Brute Force -Web": 1,
+    "Brute Force -XSS": 2,
+    "SQL Injection": 3
+  },
+  "ddos-loic-udp_hoic_21-02-2018.csv.joblib": {
+    "Benign": 0,
+    "DDOS attack-HOIC": 1,
+    "DDOS attack-LOIC-UDP": 2
+  },
+  "infiltration_01-03-2018.joblib": {
+    "Benign": 0,
+    "Infilteration": 1
+  }
+}
