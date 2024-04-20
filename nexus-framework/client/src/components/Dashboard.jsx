@@ -104,8 +104,8 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="mockup-window card border border-base-300 mt-10 row-span-2 w-[50%] h-[540px] overflow-auto">
-              <div className="card-body flex justify-start items-center py-8 bg-base-200 rounded-sm">
+            <div className="mockup-window card border border-base-300 mt-10 row-span-2 w-[50%] h-[540px]">
+              <div className="card-body flex justify-start items-center py-8 bg-base-200 rounded-sm overflow-auto">
                 <ActiveConnectionPane />
               </div>
             </div>
