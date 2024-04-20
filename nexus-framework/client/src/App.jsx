@@ -9,7 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Auth from "./components/Authenticate";
 
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   const [currUser, setCurrUser] = useState(null);
 
   const handleAuth = (e) =>{

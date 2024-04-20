@@ -110,7 +110,7 @@ const Dashboard = () => {
             </h1>
             <button
               disabled={loading}
-              className="p-4 py-2 border-2 border-yellow-600 rounded-md mt-8 mr-10"
+              className="p-4 py-2 border-2 border-yellow-600 rounded-md mt-8 mr-10 flex justify-center items-center"
               onClick={handleMailClick}
             >
               {loading ? <MoonLoader color="#FFF" size={20} /> : "Mail"}
