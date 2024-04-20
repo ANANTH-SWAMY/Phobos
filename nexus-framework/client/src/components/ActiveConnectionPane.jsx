@@ -38,6 +38,27 @@ const ActiveConnectionPane = ({ handleLogClick }) => {
       timestamp: "567",
       ip: "1.2.3.4",
     },
+    {
+      id: 6,
+      title:
+        "Lorem proident officia officia incididunt. Tempor eu aliqua laboris Lorem labore reprehenderit elit non. Mollit non adipisicing dolor eu id nisi duis nostrud. Magna sunt est qui sint tempor proident anim magna sint. Dolor mollit qui velit adipisicing consequat quis commodo officia et laboris. Lorem adipisicing commodo amet duis dolor sint nostrud pariatur quis. Cupidatat elit Lorem eiusmod mollit",
+      timestamp: "678",
+      ip: "1.2.3.4",
+    },
+    {
+      id: 7,
+      title:
+        "Lorem proident officia officia incididunt. Tempor eu aliqua laboris Lorem labore reprehenderit elit non. Mollit non adipisicing dolor eu id nisi duis nostrud. Magna sunt est qui sint tempor proident anim magna sint. Dolor mollit qui velit adipisicing consequat quis commodo officia et laboris. Lorem adipisicing commodo amet duis dolor sint nostrud pariatur quis. Cupidatat elit Lorem eiusmod mollit",
+      timestamp: "789",
+      ip: "1.2.3.4",
+    },
+    {
+      id: 8,
+      title:
+        "Lorem proident officia officia incididunt. Tempor eu aliqua laboris Lorem labore reprehenderit elit non. Mollit non adipisicing dolor eu id nisi duis nostrud. Magna sunt est qui sint tempor proident anim magna sint. Dolor mollit qui velit adipisicing consequat quis commodo officia et laboris. Lorem adipisicing commodo amet duis dolor sint nostrud pariatur quis. Cupidatat elit Lorem eiusmod mollit",
+      timestamp: "890",
+      ip: "1.2.3.4",
+    },
   ]);
 
   const [showData, setShowData] = useState([]);

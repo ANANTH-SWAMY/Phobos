@@ -118,13 +118,13 @@ const Dashboard = () => {
           </div>
           <div className="px-10 flex gap-4 h-full  w-[100%]">
             <div className="flex flex-col justify-around items-center w-[50%]">
-              <div className="card border border-base-300 mt-10 w-full h-[270px] overflow-auto">
+              <div className="card border border-base-300 mt-10 w-full h-[250px] overflow-auto">
                 <div className="card-body flex justify-self-start px-4 py-8 bg-base-200 rounded-2xl">
                   <ConnectedMachinesPane selectedLog={selectedLog} />
                 </div>
               </div>
-              <div className="card border border-base-300 mt-2 w-full h-[270px] overflow-auto">
-                <div className="card-body flex justify-self-start px-4 py-6 bg-base-200 rounded-2xl">
+              <div className="card border border-base-300 mt-2 w-full h-[290px] overflow-auto">
+                <div className="card-body flex justify-self-start px-4 py-4 bg-base-200 rounded-2xl">
                   <ListenersPane selectedLog={selectedLog} />
                 </div>
               </div>
