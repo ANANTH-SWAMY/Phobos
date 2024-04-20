@@ -3,14 +3,20 @@ import ListenersPane from "./ListenersPane";
 import ActiveConnectionPane from "./ActiveConnectionPane";
 import ConnectedMachinesPane from "./ConnectedMachinesPane";
 import { useNavigate } from "react-router-dom";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const [selectedLog, setSelectedLog] = useState(null);
 
   const navigate = useNavigate();
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const handleLogClick = (log)=>{
+    setSelectedLog(log);
+  }
 
   return (
     <div className="h-screen  ">
@@ -95,18 +101,21 @@ const Dashboard = () => {
             <div className="flex flex-col justify-around items-center w-[50%]">
               <div className="card border border-base-300 mt-10 w-full h-[270px] overflow-auto">
                 <div className="card-body flex justify-self-start px-4 py-8 bg-base-200 rounded-2xl">
-                  <ConnectedMachinesPane />
+                  <ConnectedMachinesPane selectedLog={selectedLog}  />
                 </div>
               </div>
               <div className="card border border-base-300 mt-2 w-full h-[270px] overflow-auto">
                 <div className="card-body flex justify-self-start px-4 py-6 bg-base-200 rounded-2xl">
-                  <ListenersPane />
+                  <ListenersPane selectedLog={selectedLog} />
                 </div>
               </div>
             </div>
-            <div className="mockup-window card border border-base-300 mt-10 row-span-2 w-[50%] h-[540px]">
+            <div className="mockup-window relative card border border-base-300 mt-10 row-span-2 w-[50%] h-[540px] flex justify-end items-end">
+              
+              <div className="absolute top-2 right-5">
+              <SyncLoader color={"#FFF"}  size={5} /></div>
               <div className="card-body flex justify-start items-center py-8 bg-base-200 rounded-sm overflow-auto">
-                <ActiveConnectionPane />
+                <ActiveConnectionPane handleLogClick={handleLogClick}/>
               </div>
             </div>
           </div>

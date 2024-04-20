@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LinesEllipsis from "react-lines-ellipsis";
 
-const ActiveConnectionPane = () => {
+const ActiveConnectionPane = ({ handleLogClick }) => {
   const [data, setData] = useState([
     {
       id: 1,
@@ -74,20 +74,20 @@ const ActiveConnectionPane = () => {
 
   return (
     <>
-      <div
+      {/* <div
         onClick={handleClick}
         className="p-2 border border-white rounded-md cursor-pointer"
       >
         {" "}
         Add +
-      </div>
+      </div> */}
       <div className="flex flex-col justify-center items-center gap-5">
         {showData.length > 0 ? (
           showData.map((ele) => {
             return (
               <div key={ele?.id} className="w-full">
                 <div
-                  onClick={() => console.log("Click")}
+                  onClick={() => handleLogClick(ele)}
                   className=" w-full p-2 border-2 border-slate-600 rounded-md bg-slate-800 cursor-pointer"
                 >
                   <div className="w-full flex justify-between items-center">
