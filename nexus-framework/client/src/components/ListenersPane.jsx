@@ -124,18 +124,20 @@ import {
   Tooltip,
 } from "recharts";
 
+import axios from "axios";
+
 const data = [
-  { name: "Log A", log_stuff: 400, pv: 2400, amt: 2400 },
-  { name: "Log B", log_stuff: 300, pv: 2300, amt: 2500 },
-  { name: "Log C", log_stuff: 450, pv: 2700, amt: 2900 },
-  { name: "Log D", log_stuff: 550, pv: 2400, amt: 2400 },
-  { name: "Log E", log_stuff: 150, pv: 2500, amt: 2900 },
-  { name: "Log F", log_stuff: 200, pv: 2400, amt: 2400 },
+  { name: "Benign", log_stuff: 400},
+  { name: "DDoS", log_stuff: 300,},
+  { name: "Bot", log_stuff: 450},
+  { name: "Infil", log_stuff: 550},
+  { name: "Bruteforce", log_stuff: 550},
 ];
 
 const ListenersPane = () => {
   const [currData, setCurrData] = useState([]);
   const [currIndex, setCurrIndex] = useState(0);
+
 
   useEffect(() => {
     const printInterval = setInterval(() => {
