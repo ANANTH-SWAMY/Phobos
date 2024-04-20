@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { IoMdClose } from "react-icons/io";
 
 const ListenersPane = () => {
   const [port, setPort] = useState("");
   const [error, setError] = useState("");
+
+  const [activeListener, setActiveListener] = useState("");
+  const [listenerList, setListenerList] = useState([1, 2]);
 
   const handleAddListener = async () => {
     try {
@@ -57,7 +61,15 @@ const ListenersPane = () => {
       </div>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Add Listener</h3>
+          <h3 className="font-bold text-lg flex justify-between items-center cursor-pointer">
+            Add Listener
+            <div
+              className="p-1 border border-base-200 rounded-sm text-white"
+              onClick={() => document.getElementById("my_modal_5").close()}
+            >
+              <IoMdClose />
+            </div>
+          </h3>
           <p className="py-4">
             <input
               type="number"
@@ -76,13 +88,25 @@ const ListenersPane = () => {
           </div>
         </div>
       </dialog>
-      <ul className="menu menu-lg bg-base-200 w-100">
-        <li>
-          <a>Item 1</a>
-        </li>
-        <li>
-          <a className="active">Item 2</a>
-        </li>
+      <ul
+        className={`menu menu-lg bg-base-200 w-100 overflow-auto gap-2 flex justify-center items-${
+          listenerList.length > 0 ? "start" : "center"
+        }`}
+      >
+        {listenerList.length > 0
+          ? listenerList.map((ele, id) => {
+              return (
+                <li key={id} className="w-full">
+                  <a
+                    onClick={() => setActiveListener(ele)}
+                    className={`${ele === activeListener ? "active" : ""}`}
+                  >
+                    {ele}
+                  </a>
+                </li>
+              );
+            })
+          : "Nothing to show"}
       </ul>
     </div>
   );
