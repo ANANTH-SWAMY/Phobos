@@ -27,7 +27,38 @@ app.post("/mail", (req, res) => {
   const mailOptions = {
     to: req.body.email,
     subject: "Suspicious activity on network",
-    text: "someone gonna get flagged 💀",
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #333; font-size: 24px; margin-bottom: 20px;">
+    Alert from Vajra!
+  </h1>
+  <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+    This email is to notify you of some malicious activity that was detected in you network.
+    Please check your Admin Dashboard to learn more
+  </p>
+  <div style="text-align: center;">
+    <a
+      href="http://localhost:5173/dashboard"
+      style="display: inline-block; background-color: #007bff; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px;"
+    >
+      Proceed
+    </a>
+  </div>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666; font-size: 14px;">
+    <p>&copy; ${new Date().getFullYear()} Vajra. All rights reserved.</p>
+    <p>
+      <a
+        href="https://github.com/ANANTH-SWAMY/Vajra"
+        style="color: #007bff; text-decoration: none;"
+      >
+        GitHub
+      </a>
+    </p>
+  </div>
+</div>
+  
+`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

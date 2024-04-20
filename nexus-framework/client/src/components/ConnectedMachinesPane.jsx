@@ -27,17 +27,23 @@ const ConnectedMachinesPane = ({ selectedLog }) => {
             })
           : "Nothing to show"}
       </ul>{" "} */}
-      {selectedLog ? (
-        <div className="flex flex-col gap-2 mt-4">
-          <div className="w-full flex justify-between items-center">
-            <div className="">IP : {selectedLog.ip}</div>
-            <div className="">Time : {selectedLog.timestamp}</div>
+      <div
+        className={`flex justify-${selectedLog ? "start" : "center"} items-${
+          selectedLog ? "start" : "center"
+        } ${selectedLog ? "" : "h-full"}`}
+      >
+        {selectedLog ? (
+          <div className="flex flex-col gap-2 mt-4">
+            <div className="w-full flex justify-between items-center">
+              <div className="">IP : {selectedLog.ip}</div>
+              <div className="">Time : {selectedLog.timestamp}</div>
+            </div>
+            <div>{selectedLog.title}</div>
           </div>
-          <div>{selectedLog.title}</div>
-        </div>
-      ) : (
-        "Get started by selecting a Log"
-      )}
+        ) : (
+          "Get started by selecting a Log"
+        )}
+      </div>
     </div>
   );
 };
